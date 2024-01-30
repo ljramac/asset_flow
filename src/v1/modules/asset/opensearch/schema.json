@@ -1,0 +1,72 @@
+{
+  "index": "assets",
+  "body": {
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "asset_analyzer": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "asciifolding"
+            ]
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "_id": {
+          "type": "keyword"
+        },
+        "createdBy": {
+          "type": "text",
+          "analyzer": "asset_analyzer"
+        },
+        "updatedBy": {
+          "type": "text",
+          "analyzer": "asset_analyzer"
+        },
+        "job": {
+          "type": "keyword"
+        },
+        "storage": {
+          "type": "keyword"
+        },
+        "status": {
+          "type": "keyword"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "filename": {
+          "type": "text",
+          "analyzer": "asset_analyzer"
+        },
+        "path": {
+          "type": "text",
+          "analyzer": "asset_analyzer"
+        },
+        "md5": {
+          "type": "keyword"
+        },
+        "createdAt": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "updatedAt": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "dir": {
+          "type": "text",
+          "analyzer": "asset_analyzer"
+        },
+        "ext": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

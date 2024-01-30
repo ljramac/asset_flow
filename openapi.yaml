@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Asset Management API
+  version: 1.0.0
+  description: API for managing assets in a storage system
+servers:
+  - url: /api/v1
+
+paths:
+  /assets:
+    get:
+      summary: Retrieve a list of assets
+      responses:
+        '200':
+          description: A list of assets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+    post:
+      summary: Create a new asset or assets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+          application/json:
+            schema:
+              type: object
+              properties:
+                assets:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Asset'
+      responses:
+        '200':
+          description: Asset or assets created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        '400':
+          description: Bad request
+
+  /assets/{id}:
+    get:
+      summary: Retrieve an asset by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Asset data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+    put:
+      summary: Update an asset by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asset'
+      responses:
+        '200':
+          description: Asset updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+    patch:
+      summary: Partially update an asset by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asset'
+      responses:
+        '200':
+          description: Asset updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+
+components:
+  schemas:
+    Asset:
+      type: object
+      properties:
+        remoteId:
+          type: string
+        error:
+          type: string
+        workflow:
+          type: string
+        tasks:
+          type: array
+          items:
+            type: string
+        storage:
+          type: string
+          enum: [fs, dam]
+        status:
+          type: string
+        size:
+          type: number
+        dir:
+          type: string
+        ext:
+          type: string
+        filename:
+          type: string
+        path:
+          type: string
+        reference:
+          type: string
+        md5:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string

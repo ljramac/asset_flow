@@ -1,0 +1,19 @@
+kafka:
+  host: 127.0.0.1:9092
+  asset_topic: asset
+log:
+  level: debug
+  transports: null
+auth:
+  type: sso
+snowflake:
+  account: ""
+  username: ""
+routines:
+  db_to_snowflake:
+    cron: "0 0 * * *"
+    enabled: true
+database:
+  type: mongodb
+opensearch:
+  host: https://opensearch:9200
